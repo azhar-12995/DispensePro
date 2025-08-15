@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">DispensePro</string>
+    <string name="welcome_to_dispense_pro">Welcome to DispensePro</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="your_partner_in_health_and_well_being">Your Partner in Health and Well-Being</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="signup">Signup</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="appointments">Appointments</string>
+    <string name="status">status</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <string name="home">Home</string>
+    <string name="chat">Chat</string>
+    <string name="share">Share</string>
+    <string name="logout">Logout</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="schedule">Schedule</string>
+    <string name="add_appointment">Add Appointment</string>
+    <string name="neurology">Neurology</string>
+    <string name="cardiology">Cardiology</string>
+    <string name="orthopedics">Orthopedics</string>
+    <string name="pathology">Pathology</string>
+    <string name="trade_mark">Transforming Pharmacy knowledge into Real-World Readiness</string>
+    <string name="view_all">View All</string>
+    <string name="badges">Badges</string>
+    <string name="progress">Progress</string>
+    <string name="let_s_start">Let\'s Start</string>
+</resources>

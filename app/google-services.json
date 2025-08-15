@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "783519202761",
+    "project_id": "dispensepro-17e3f",
+    "storage_bucket": "dispensepro-17e3f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783519202761:android:a0b7a0f6a6f9a25989fc18",
+        "android_client_info": {
+          "package_name": "com.mtbc.dispensepro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALkzNax59Fv3yJjqAiEbbX-ZeIujhMf0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
