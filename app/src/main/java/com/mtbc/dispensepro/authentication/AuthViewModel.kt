@@ -19,7 +19,7 @@ class AuthViewModel @Inject constructor(
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            _authState.value = Resource.Loading()
+            _authState.value = Resource.Loading
             _authState.value = repository.login(email, password)
         }
     }
@@ -27,7 +27,7 @@ class AuthViewModel @Inject constructor(
 
     fun signUp(email: String, password: String) {
         viewModelScope.launch {
-            _authState.value = Resource.Loading()
+            _authState.value = Resource.Loading
             _authState.value = repository.signUp(email, password)
         }
     }

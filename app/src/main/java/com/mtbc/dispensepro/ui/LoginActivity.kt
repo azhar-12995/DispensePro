@@ -83,6 +83,9 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity, resource.message, Toast.LENGTH_LONG).show()
                     }
                     null -> Unit
+                    Resource.Idle -> {
+
+                    }
                 }
             }
         }

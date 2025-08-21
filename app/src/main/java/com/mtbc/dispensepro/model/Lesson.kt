@@ -5,4 +5,5 @@ data class Lesson(
     val title: String = "",
     val info: String = "",
     val mcqs: List<MCQ> = emptyList(),
+    var locked: Boolean = true
 )

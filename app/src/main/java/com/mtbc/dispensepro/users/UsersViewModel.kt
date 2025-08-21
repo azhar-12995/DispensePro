@@ -17,7 +17,7 @@ class UsersViewModel @Inject constructor(
     private val repository: FirestoreRepository
 ) : ViewModel() {
 
-    private val _user = MutableStateFlow<Resource<User>>(Resource.Loading())
+    private val _user = MutableStateFlow<Resource<User>>(Resource.Idle)
     val user: StateFlow<Resource<User>> = _user.asStateFlow()
 
     fun getUser(userId: String) = viewModelScope.launch {

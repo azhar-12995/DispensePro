@@ -53,4 +53,21 @@
         <item name="buttonStyle">@style/MyButtonStyle</item>
         <item name="buttonStyleSmall">@style/MyButtonStyle</item>
     </style>
+
+    <style name="TransparentDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="SubmitButtonStyle" parent="Widget.Material3.Button.TonalButton">
+        <item name="backgroundTint">@color/btn_submit</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="NextButtonStyle" parent="Widget.Material3.Button.TonalButton">
+        <item name="backgroundTint">@color/btn_next</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
 </resources>

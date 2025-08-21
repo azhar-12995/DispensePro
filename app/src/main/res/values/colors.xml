@@ -27,4 +27,12 @@
     <color name="light_purple">#F7E0FB</color>
     <color name="text_color">#6E81EF</color>
     <color name="app_bg">#EEE7FA</color>
+    <color name="lock_color">#E62816</color>
+    <color name="radio_checked_color">#F2BE74</color>
+
+    <color name="mcq_bg">#F9FAFB</color> <!-- Background for screen -->
+    <color name="btn_next">#3B82F6</color> <!-- Blue -->
+    <color name="btn_submit">#22C55E</color>
+    <color name="wrong_color">#F2796C</color>
+    <color name="correct_color">#63BA67</color>
 </resources>

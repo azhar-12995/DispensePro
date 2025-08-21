@@ -106,6 +106,7 @@ class SignupActivity : AppCompatActivity() {
                     }
 
                     null -> Unit
+                    Resource.Idle -> TODO()
                 }
             }
         }

@@ -2,6 +2,7 @@ package com.mtbc.dispensepro.firestore
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mtbc.dispensepro.model.Lesson
+import com.mtbc.dispensepro.model.RegisteredLessons
 import com.mtbc.dispensepro.users.model.User
 import com.mtbc.dispensepro.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +55,62 @@ class FirestoreRepository @Inject constructor(
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Failed to add lessons")
+        }
+    }
+    suspend fun registerLesson(
+        uId: String,
+        registeredCourse: RegisteredLessons
+    ): Resource<String> = withContext(Dispatchers.IO) {
+        return@withContext try {
+            dispenseCollection
+                .document("Users")
+                .collection(uId)
+                .document("Lesson"+registeredCourse.id)
+                .set(registeredCourse)
+                .await()
+            Resource.Success("Registered Successfully")
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to register Lesson")
+        }
+    }
+    suspend fun getAllRegisteredLessons(uid: String): Resource<List<RegisteredLessons>> =
+        withContext(Dispatchers.IO) {
+            return@withContext try {
+                val snapshot = dispenseCollection
+                    .document("Users")
+                    .collection(uid)
+                    .get()
+                    .await()
+
+                val lessonsList = snapshot.documents
+                    .filter { it.id.startsWith("Lesson") }
+                    .mapNotNull { it.toObject(RegisteredLessons::class.java) }
+
+                Resource.Success(lessonsList)
+            } catch (e: Exception) {
+                Resource.Error(e.message ?: "Failed to fetch registered lessons")
+            }
+        }
+
+
+
+    suspend fun isLessonRegistered(uid: String, courseId: String): Resource<Boolean> = withContext(Dispatchers.IO) {
+        try {
+            val snapshot = dispenseCollection
+                .document("Users")
+                .collection(uid)
+                .document("Lesson"+courseId) // use consistent key
+                .get()
+                .await()
+
+            if (snapshot.exists()) {
+                val course = snapshot.toObject(RegisteredLessons::class.java)
+                Resource.Success(course?.isRegistered == true)
+            } else {
+                Resource.Success(false)
+            }
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to check course registration")
         }
     }
 

@@ -15,6 +15,7 @@ import com.mtbc.dispensepro.lessons.LessonsViewModel
 import com.mtbc.dispensepro.lessons.StaticLessonProvider.getAllLessons
 import com.mtbc.dispensepro.model.Badges
 import com.mtbc.dispensepro.model.Lesson
+import com.mtbc.dispensepro.model.RegisteredLessons
 import com.mtbc.dispensepro.moveToNextActivity
 import com.mtbc.dispensepro.utils.BadgeViewType
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         lessonsViewModel = ViewModelProvider(this)[LessonsViewModel::class.java]
+        lessonsViewModel.registerCourse(
+            StorageManager.getUserId(applicationContext)!!, RegisteredLessons(1, false, true, 0.0, 0.0, 0.0)
+        )
 
         binding.tvViewAll.setOnClickListener {
             moveToNextActivity(AllBadgesActivity::class.java)
