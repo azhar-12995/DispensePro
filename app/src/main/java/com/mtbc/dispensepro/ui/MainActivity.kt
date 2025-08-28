@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mtbc.dispensepro.adapters.BadgesAdapter
 import com.mtbc.dispensepro.R
@@ -17,8 +18,12 @@ import com.mtbc.dispensepro.model.Badges
 import com.mtbc.dispensepro.model.Lesson
 import com.mtbc.dispensepro.model.RegisteredLessons
 import com.mtbc.dispensepro.moveToNextActivity
+import com.mtbc.dispensepro.showToast
 import com.mtbc.dispensepro.utils.BadgeViewType
+import com.mtbc.dispensepro.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -37,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         lessonsViewModel = ViewModelProvider(this)[LessonsViewModel::class.java]
+        lessonsViewModel.getAllLessons()
+        getAllLessonsCount()
         lessonsViewModel.registerCourse(
             StorageManager.getUserId(applicationContext)!!, RegisteredLessons(1, false, true, 0.0, 0.0, 0.0)
         )
@@ -57,6 +64,35 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+    fun getAllLessonsCount(){
+        lifecycleScope.launch {
+            lessonsViewModel.lessons.collectLatest { response ->
+                when(response){
+
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        val lessons = response.data
+                        if (!lessons.isNullOrEmpty()) {
+                            binding.tvNewCourses.text = "All Courses\n    "+lessons.size.toString()
+                        } else {
+                            lessonsViewModel.getAllLessons()
+                        }
+
+                    }
+
+                    is Resource.Error -> {
+                        showToast(response.message)
+                    }
+                    Resource.Idle -> {
+
+                    }
+                }
+            }
+        }
+    }
 
     private fun setBadges() {
 

@@ -29,7 +29,6 @@ class LessonAdapter(
         val binding = holder.binding
 
         binding.lessonTitle.text = lesson.title
-
         if (position != 0 && lesson.locked) {
             // Locked (except first item)
             binding.rootLinear.setBackgroundResource(R.color.pending)
