@@ -5,5 +5,7 @@ data class Lesson(
     val title: String = "",
     val info: String = "",
     val mcqs: List<MCQ> = emptyList(),
-    var locked: Boolean = true
+    var locked: Boolean = true,
+    var isCompleted: Boolean = false,
+    var marks: Double = 0.0
 )

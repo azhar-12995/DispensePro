@@ -47,7 +47,7 @@ class LessonsViewModel @Inject constructor(
         }
     }
 
-    fun registerCourse(uId: String, registeredCourse: RegisteredLessons) {
+    fun registerAndUpdateCourse(uId: String, registeredCourse: RegisteredLessons) {
         viewModelScope.launch {
             _registerCourse.value = Resource.Loading
             _registerCourse.value = repository.registerLesson(uId, registeredCourse)

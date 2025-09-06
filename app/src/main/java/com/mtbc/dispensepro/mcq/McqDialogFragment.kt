@@ -11,17 +11,23 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.mtbc.dispensepro.R
 import com.mtbc.dispensepro.databinding.McqItemBinding
-import com.mtbc.dispensepro.lessons.StaticLessonProvider
+import com.mtbc.dispensepro.lessons.LessonsViewModel
 import com.mtbc.dispensepro.model.Lesson
 import com.mtbc.dispensepro.model.MCQ
+import com.mtbc.dispensepro.model.RegisteredLessons
 
-class McqDialogFragment(private val lesson: Lesson) : DialogFragment() {
+class McqDialogFragment(
+    private val lesson: Lesson,
+    val uid: String,
+    val lessonsViewModel: LessonsViewModel
+) : DialogFragment() {
     private var _binding: McqItemBinding? = null
     private val binding get() = _binding!!
     private var mcqList: List<MCQ> = emptyList()
     private var currentIndex = 0
-    var currentQuestionIndex = 0
     var totalQuestions = 0
+    var correctAns = 0.0
+    var wrongAns = 0.0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = McqItemBinding.inflate(layoutInflater)
@@ -60,10 +66,12 @@ class McqDialogFragment(private val lesson: Lesson) : DialogFragment() {
             if (selectedIndex == correctIndex) {
                 binding.tvResult.text = "✅  Correct!"
                 binding.llExplanation.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.correct_color))
+                correctAns++
             } else {
                 binding.tvResult.text =
                     "❌  Wrong. \nCorrect: ${mcqList[currentIndex].options[correctIndex]}"
                 binding.llExplanation.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.wrong_color))
+            wrongAns++
             }
             binding.llExplanation.visibility = View.VISIBLE
 
@@ -84,6 +92,8 @@ class McqDialogFragment(private val lesson: Lesson) : DialogFragment() {
             } else {
                 dismiss() // End of quiz
                 Toast.makeText(requireContext(), "Quiz Finished!", Toast.LENGTH_SHORT).show()
+                lessonsViewModel.registerAndUpdateCourse(uid,RegisteredLessons(lesson.id, true, true, correctAns, 0.0, 0.0))
+                lessonsViewModel.getAllRegisteredLessons(uid)
             }
         }
 
@@ -130,8 +140,8 @@ class McqDialogFragment(private val lesson: Lesson) : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(lesson: Lesson): McqDialogFragment {
-            val fragment = McqDialogFragment(lesson)
+        fun newInstance(lesson: Lesson, uid: String, lessonsViewModel: LessonsViewModel): McqDialogFragment {
+            val fragment = McqDialogFragment(lesson,uid,lessonsViewModel)
             return fragment
         }
     }

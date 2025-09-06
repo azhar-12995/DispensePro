@@ -43,28 +43,53 @@ class LessonsActivity : AppCompatActivity() {
             insets
         }
 
-        lessonsViewModel.getAllRegisteredLessons(StorageManager.getUserId(applicationContext)!!)
+
         getLessons()
         getAllRegisteredLessons()
 
     }
 
     private fun setLessons(lessons: List<Lesson>) {
-        lessons.forEach { lesson ->
-            val isRegistered = allRegisteredLessons.any { it.id == lesson.id }
-            lesson.locked = !isRegistered
+        // Build lookup map for faster access
+        val registeredMap = allRegisteredLessons.associateBy { it.id }
+
+        var previousCompleted = true // first lesson should always be unlocked
+
+        val updatedLessons = lessons.mapIndexed { index, lesson ->
+            val registered = registeredMap[lesson.id]
+
+            lesson.apply {
+                // lesson is completed if registered & marked completed
+                isCompleted = registered?.isCompleted == true
+                marks = registered?.quizMarks ?: 0.0
+
+                // unlocking logic
+                locked = when {
+                    index == 0 -> false // first lesson always unlocked
+                    previousCompleted -> false // unlocked if previous completed
+                    else -> true
+                }
+
+                // update tracker for the next lesson
+                previousCompleted = isCompleted
+            }
         }
-        binding.rvLessons.layoutManager = LinearLayoutManager(this)
-        binding.rvLessons.adapter = LessonAdapter(lessons, onLessonClick = { lesson ->
-            val bottomSheet = LessonBottomSheet(
-                lesson,
-                lessonsViewModel,
-                authViewModel.getCurrentUser()!!.uid,
-                loader
-            )
-            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-        })
+
+        binding.rvLessons.apply {
+            layoutManager = LinearLayoutManager(this@LessonsActivity)
+            adapter = LessonAdapter(updatedLessons) { lesson ->
+                if (!lesson.isCompleted) {
+                    LessonBottomSheet(
+                        lesson,
+                        lessonsViewModel,
+                        authViewModel.getCurrentUser()!!.uid,
+                        loader
+                    ).show(supportFragmentManager, LessonBottomSheet::class.java.simpleName)
+                }
+            }
+        }
     }
+
 
     private fun getLessons() {
         lifecycleScope.launch {
@@ -98,6 +123,7 @@ class LessonsActivity : AppCompatActivity() {
     }
 
     fun getAllRegisteredLessons() {
+        lessonsViewModel.getAllRegisteredLessons(StorageManager.getUserId(applicationContext)!!)
         lifecycleScope.launch {
             lessonsViewModel.registeredLessons.collectLatest { result ->
                 when (result) {

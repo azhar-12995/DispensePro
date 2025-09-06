@@ -1,6 +1,7 @@
 package com.mtbc.dispensepro.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -42,11 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         lessonsViewModel = ViewModelProvider(this)[LessonsViewModel::class.java]
-        lessonsViewModel.getAllLessons()
+
         getAllLessonsCount()
-        lessonsViewModel.registerCourse(
-            StorageManager.getUserId(applicationContext)!!, RegisteredLessons(1, false, true, 0.0, 0.0, 0.0)
-        )
+        getAllRegisteredLessons()
+
 
         binding.tvViewAll.setOnClickListener {
             moveToNextActivity(AllBadgesActivity::class.java)
@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity() {
         if (!StorageManager.isLessonsInitialized(this)) {
             lessonsViewModel.addLessons(getAllLessons())
             StorageManager.markLessonsAsInitialized(this)
+            lessonsViewModel.registerAndUpdateCourse(
+                StorageManager.getUserId(applicationContext)!!, RegisteredLessons(1, false, true, 0.0, 0.0, 0.0)
+            )
         }
 
         setBadges()
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun getAllLessonsCount(){
+        lessonsViewModel.getAllLessons()
         lifecycleScope.launch {
             lessonsViewModel.lessons.collectLatest { response ->
                 when(response){
@@ -93,6 +97,35 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    fun getAllRegisteredLessons(){
+        lessonsViewModel.getAllRegisteredLessons(StorageManager.getUserId(applicationContext)!!)
+        lifecycleScope.launch {
+            lessonsViewModel.registeredLessons.collectLatest { response ->
+                when(response){
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        val lessons = response.data
+                        if (!lessons.isNullOrEmpty()) {
+                            Log.i("TAG", "getAllRegisteredLessons: "+lessons.size)
+                            binding.tvRegisteredLessonsCount.text = lessons.size.toString()
+                            binding.tvCompletedLessonsCount.text  = lessons.filter { it.isCompleted }.size.toString()
+
+                        }
+
+                }
+                    is Resource.Error -> {
+                        showToast(response.message)
+                    }
+                    Resource.Idle -> {
+
+                    }
+            }
+        }
+
+    }
+        }
 
     private fun setBadges() {
 

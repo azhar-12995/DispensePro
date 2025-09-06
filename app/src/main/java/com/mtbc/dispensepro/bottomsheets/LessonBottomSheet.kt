@@ -94,11 +94,12 @@ class LessonBottomSheet(
             }
 
         }
+
         lessonTitle.text = lesson.title
         lessonInfo.text = lesson.info
         ivRegister.setOnClickListener {
             requireActivity().showYesNoDialog("Would you like to Register Course", "Yes", "No", {
-                lessonsViewModel.registerCourse(
+                lessonsViewModel.registerAndUpdateCourse(
                     uid, RegisteredLessons(lesson.id, false, true, 0.0, 0.0, 0.0)
                 )
             }, {
@@ -108,8 +109,9 @@ class LessonBottomSheet(
 
         }
         btnStartLesson.setOnClickListener {
-            val dialog = McqDialogFragment.newInstance(lesson)
+            val dialog = McqDialogFragment.newInstance(lesson,uid,lessonsViewModel)
             dialog.show(parentFragmentManager, "mcqDialog")
+            dismiss()
         }
     }
 }
