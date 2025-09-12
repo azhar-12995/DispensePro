@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvHospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hospital: DrugScribe"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_gravity="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"
+            android:layout_marginVertical="8dp"/>
+
+        <!-- Doctor Info -->
+        <TextView
+            android:id="@+id/tvDoctor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doctor: Dr. XYZ (Pain Physician)"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:paddingBottom="8dp"/>
+
+        <!-- Patient Info -->
+        <TextView
+            android:id="@+id/tvPatient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Patient: ABC | 45y | Female | MR# 12-34-56"
+            android:textSize="14sp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date: 06-Sep-25"
+            android:textSize="14sp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvAllergies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Allergies: NKDA"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <!-- Diagnosis -->
+        <TextView
+            android:id="@+id/tvDiagnosis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diagnosis: Chronic neck &amp; back pain"
+            android:textStyle="italic"
+            android:textSize="14sp"
+            android:paddingBottom="12dp"/>
+
+        <!-- Rx Label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rx:"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingBottom="6dp"/>
+
+        <!-- Medicines (multi-line TextView) -->
+        <TextView
+            android:id="@+id/tvMedicines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• Dextop 30 mg – 1 cap BD × 7d (before meals)\n• Lyta 20 mg – 1 cap BD × 7d (after breakfast)\n• Miro 2.5 mg – 1 tab OD × 7d"
+            android:textSize="14sp"
+            android:lineSpacingExtra="2dp"
+            android:paddingBottom="12dp"/>
+
+        <!-- Follow-up -->
+        <TextView
+            android:id="@+id/tvFollowUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Follow-up: After 1 week"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"/>
+
+
+    </LinearLayout>
+</ScrollView>

@@ -16,6 +16,13 @@
         android:theme="@style/Theme.DispensePro"
         tools:targetApi="31">
         <activity
+            android:name=".ui.PlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.PharmacyScreenActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".ui.LessonsActivity"
             android:exported="false" />
         <activity

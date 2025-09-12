@@ -73,4 +73,6 @@ dependencies {
     annotationProcessor(libs.glide.compiler)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.balloon)
+    implementation(libs.core)
 }

@@ -17,6 +17,7 @@ import com.mtbc.dispensepro.databinding.ActivityLessonsBinding
 import com.mtbc.dispensepro.lessons.LessonsViewModel
 import com.mtbc.dispensepro.model.Lesson
 import com.mtbc.dispensepro.model.RegisteredLessons
+import com.mtbc.dispensepro.moveToNextActivity
 import com.mtbc.dispensepro.showToast
 import com.mtbc.dispensepro.utils.LoaderDialog
 import com.mtbc.dispensepro.utils.Resource
@@ -43,7 +44,9 @@ class LessonsActivity : AppCompatActivity() {
             insets
         }
 
-
+          binding.btnPharmacy.setOnClickListener {
+              moveToNextActivity(PharmacyScreenActivity::class.java)
+          }
         getLessons()
         getAllRegisteredLessons()
 

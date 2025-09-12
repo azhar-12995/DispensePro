@@ -35,4 +35,5 @@
     <color name="btn_submit">#22C55E</color>
     <color name="wrong_color">#F2796C</color>
     <color name="correct_color">#63BA67</color>
+    <color name="rack_bg">#A96C4E</color>
 </resources>

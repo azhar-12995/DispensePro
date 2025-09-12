@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
         binding.cardNewCourses.setOnClickListener {
             moveToNextActivity(LessonsActivity::class.java)
         }
+        binding.cardCompletedCourses.setOnClickListener {
+            moveToNextActivity(PlayerActivity::class.java)
+        }
         if (!StorageManager.isLessonsInitialized(this)) {
             lessonsViewModel.addLessons(getAllLessons())
             StorageManager.markLessonsAsInitialized(this)
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 StorageManager.getUserId(applicationContext)!!, RegisteredLessons(1, false, true, 0.0, 0.0, 0.0)
             )
         }
+
 
         setBadges()
 
